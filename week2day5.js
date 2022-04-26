@@ -212,8 +212,6 @@ class BST {
         }
         return 1 + Math.max(this.height(node.left), this.height(node.right));
     }
-
-
 // isFull
 // Return true or false whether every node has either 0 or 2 children
     isFull(){
