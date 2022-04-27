@@ -1,4 +1,4 @@
-class Queue {
+class QueueArr {
     constructor(){
         this.items = [];
     }
@@ -41,26 +41,26 @@ class Queue {
     }
 }
 
-var myQArr = new Queue();
-myQArr.enqueue(5);
-myQArr.enqueue(7);
-myQArr.enqueue(12);
-console.log(myQArr.enqueue(3));
-console.log(myQArr);
-console.log(myQArr.deQ());
-console.log(myQArr);
+// var myQArr = new QueueArr();
+// myQArr.enqueue(5);
+// myQArr.enqueue(7);
+// myQArr.enqueue(12);
+// console.log(myQArr.enqueue(3));
+// console.log(myQArr);
+// console.log(myQArr.deQ());
+// console.log(myQArr);
 
 
 //Queue with Linked list
 
-class QNode {
+class QueueNode {
     constructor(data) {
         this.data = data; 
         this.next = null; 
     }
 }
 
-class QSLL {
+class QueueSLL {
     constructor() {
         this.head = null;
         this.length = 0;
@@ -69,7 +69,7 @@ class QSLL {
 
     // Enqueue - add an item and return the new size of the queue
     enqueue(val) {
-        var newNode = new QNode(val);
+        var newNode = new QueueNode(val);
         if (this.isEmpty()){
             this.head = newNode;
         }
@@ -90,13 +90,13 @@ class QSLL {
             return null;
         }
         else if (this.head.next === null){
-            var temp = this.head;
+            var temp = this.head.data;
             this.head = null;
             this.length--;
             return temp;
         }
         else {
-            var temp = this.head;
+            var temp = this.head.data;
             this.head = this.head.next;
             this.length--;
             return temp;
@@ -109,15 +109,20 @@ class QSLL {
 
     // Front - return the first item without removing it
     front() {
-        return this.head;
+        return this.head.data;
     }
 }
 
-// var myQSLL = new QSLL();
+
+
+
+// var myQSLL = new QueueSLL();
 // myQSLL.enqueue(5);
 // myQSLL.enqueue(7);
 // myQSLL.enqueue(12);
 // // console.log(myQSLL.enqueue(3));
 // console.log(myQSLL.dequeue());
 // console.log(myQSLL);
+
+
 
