@@ -154,16 +154,65 @@ class QueueArr {
     front() {
         return this.items[0];
     }
+
+    // Sum of Halves Equal
+    // Return true or false whether the sum of the front half of your queue is equal to the sum of the left half of your queue - as before, try to limit yourself to only built in methods within your queue class
+
+    SumOfHalves() {
+        var LSum = 0;
+        var RSum = 0;
+        if (this.isEmpty()){
+            return null;
+        }
+        else {
+            if (this.items.length % 2 == 0){
+                var middle = this.items.length/2;
+            }
+            else {
+                var middle = Math.ceil(this.items.length/2) - 1;
+            }
+            for (var i = 0; i < this.items.length; i++){
+                if(i < middle){
+                    var temp = this.dequeue();
+                    LSum += temp;
+                    console.log("the left sum is" + LSum)
+                    this.enqueue(temp);
+                }
+                else if (i == middle && this.items.length % 2 != 0){
+                    var temp = this.dequeue();
+                    LSum += temp;
+                    RSum += temp;
+                    console.log("in the else if")
+                    console.log("the left sum is" + LSum)
+                    console.log("the right sum is" + RSum)
+                    this.enqueue(temp);
+                }
+                else {
+                    var temp = this.dequeue();
+                    RSum += temp;
+                    console.log("the right sum is" + RSum)
+                    this.enqueue(temp);
+                }
+            }
+        }
+        console.log(LSum)
+        console.log(RSum)
+        if (LSum === RSum){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
 
-// var myQArr = new QueueArr();
-// myQArr.enqueue(5);
-// myQArr.enqueue(7);
-// myQArr.enqueue(12);
-// console.log(myQArr.enqueue(3));
-// console.log(myQArr);
-// console.log(myQArr.deQ());
-// console.log(myQArr);
+var myQArr = new QueueArr();
+myQArr.enqueue(5);
+myQArr.enqueue(7);
+myQArr.enqueue(4);
+myQArr.enqueue(2);
+myQArr.enqueue(0);
+console.log(myQArr.SumOfHalves())
 
 
 //Queue with Linked list
@@ -246,8 +295,62 @@ class QueueSLL {
         }
         return true;
     }
+    // Is queue a palindrome, also using only built in methods
+    isPalindrome() {
+        if(this.isEmpty()){
+            return false;
+        }
 
+        var tempStack = new LinkedListStack();
 
+        for (var i = 0; i < this.length; i++) {
+            let temp = this.dequeue();
+            tempStack.push(temp);
+            this.enqueue(temp);
+        }
+        
+        console.log(tempStack);
+
+        for (var i = 0; i < this.length; i++) {
+            let temp = this.front();
+            let temp2 = tempStack.peek();
+            console.log(temp, temp2);
+
+            if( temp === temp2 ){
+            this.enqueue(this.dequeue());
+            tempStack.pop();
+            } else {
+                console.log("ForLoop False Statement");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    
+}
+
+// Two Stack Queue
+    // This one is a proof on concept: can you get the functionality of a queue using two stacks? Use your knowledge of queues and stacks to create a class called TwoStackQueue and write the enqueue and dequeue methods
+
+class TwoStackQueue {
+    constructor() {
+        this.stack1 = new StackArr();
+        this.stack2 = new StackArr();
+    }
+
+    enqueue(val) {
+        this.stack2 = [val];
+        for(let i = 0; i < this.stack1.length - 1; i++){
+            this.stack2.push(this.stack1[i]);
+        }
+        this.stack1 = this.stack2;
+        return this.stack1;
+    }
+
+    dequeue() {
+        // your code here
+    }
 }
 
 
@@ -269,4 +372,4 @@ QSLL2.enqueue(12);
 
 
 // console.log(CompareQueues(QSLL1, QSLL2));
-console.log(QSLL1.palindrome());
+// console.log(QSLL1.isPalindrome());
